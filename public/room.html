@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Cove room</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" href="data:," />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,500;1,600&family=Outfit:wght@400;500;600&display=swap"
+		rel="stylesheet"
+	/>
+	<link rel="stylesheet" href="/css/style.css" />
+	<style>
+		html,
+		body {
+			overflow: hidden;
+		}
+		#lobby {
+			display: flex;
+			flex-direction: column;
+			min-height: 100dvh;
+		}
+		#stage.is-visible {
+			display: flex;
+		}
+	</style>
+</head>
+<body>
+	<div class="room-shell" id="roomShell">
+		<!-- ============ LOBBY ============ -->
+		<section id="lobby">
+			<header class="room-header">
+				<a class="wordmark" href="/">
+					<svg viewBox="0 0 32 32" aria-hidden="true">
+						<path
+							d="M7.5 12.5c0-6 4.7-10 8.5-10s8.5 4 8.5 10c0 7.2-5.2 13.5-8.5 16.5C12.7 26 7.5 19.7 7.5 12.5Z"
+							stroke="currentColor"
+							stroke-width="1.6"
+							stroke-linejoin="round"
+							fill="none"
+						/>
+						<circle cx="16" cy="13" r="3.1" fill="currentColor" />
+					</svg>
+					<span>Cove</span>
+				</a>
+				<span class="room-path" id="lobbyRoomPath">/&hellip;</span>
+			</header>
+
+			<div class="lobby-main">
+				<div class="lobby-preview">
+					<div class="frame">
+						<video id="previewVideo" autoplay muted playsinline></video>
+						<div class="avatar-fallback" id="previewAvatarFallback" hidden>
+							<div class="avatar-circle" id="previewAvatarInitial">?</div>
+						</div>
+					</div>
+					<div class="preview-controls">
+						<button class="btn btn-icon" id="lobbyMicBtn" type="button" aria-label="Mute microphone"></button>
+						<button class="btn btn-icon" id="lobbyCamBtn" type="button" aria-label="Turn camera off"></button>
+					</div>
+				</div>
+
+				<p class="lobby-hint" id="lobbyHint" hidden></p>
+
+				<div class="lobby-fields">
+					<label class="field-label" for="nameInput">
+						Your name
+						<input class="input" id="nameInput" maxlength="32" placeholder="What should people call you?" autocomplete="nickname" />
+					</label>
+					<label class="field-label" for="camSelect" id="camSelectWrap" hidden>
+						Camera
+						<select class="select" id="camSelect"></select>
+					</label>
+					<label class="field-label" for="micSelect" id="micSelectWrap" hidden>
+						Microphone
+						<select class="select" id="micSelect"></select>
+					</label>
+				</div>
+
+				<button class="btn btn-primary btn-lg" id="joinBtn" type="button" style="width: 100%">Join</button>
+				<p class="lobby-footnote">Video travels peer-to-peer. We never see your camera.</p>
+			</div>
+		</section>
+
+		<!-- ============ IN CALL ============ -->
+		<section class="stage" id="stage">
+			<header class="room-header">
+				<a class="wordmark" href="/">
+					<svg viewBox="0 0 32 32" aria-hidden="true">
+						<path
+							d="M7.5 12.5c0-6 4.7-10 8.5-10s8.5 4 8.5 10c0 7.2-5.2 13.5-8.5 16.5C12.7 26 7.5 19.7 7.5 12.5Z"
+							stroke="currentColor"
+							stroke-width="1.6"
+							stroke-linejoin="round"
+							fill="none"
+						/>
+						<circle cx="16" cy="13" r="3.1" fill="currentColor" />
+					</svg>
+					<span>Cove</span>
+				</a>
+				<div class="header-right">
+					<span class="room-path" id="activeRoomPath">/&hellip;</span>
+					<span class="pill" id="peerCountPill">1 person</span>
+					<button class="btn btn-secondary btn-sm" id="copyLinkBtn" type="button">Copy link</button>
+				</div>
+			</header>
+
+			<p class="crowded-note" id="crowdedNote" hidden></p>
+
+			<div class="stage-body">
+				<div class="waiting-row" id="waitingRow" hidden>
+					<div class="waiting-pill">
+						<span>Waiting for others.</span>
+						<button class="btn btn-primary btn-sm" id="waitingCopyBtn" type="button">Copy room link</button>
+					</div>
+				</div>
+
+				<div class="video-grid" id="videoGrid" data-count="1"></div>
+
+				<aside class="chat-panel" id="chatPanel">
+					<div class="chat-panel-header">
+						<h2>Chat</h2>
+						<button class="chat-close" id="chatCloseBtn" type="button" aria-label="Close chat">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<line x1="18" y1="6" x2="6" y2="18"></line>
+								<line x1="6" y1="6" x2="18" y2="18"></line>
+							</svg>
+						</button>
+					</div>
+					<div class="chat-log" id="chatLog">
+						<p class="chat-empty" id="chatEmpty">Messages stay in this room, on this device.</p>
+					</div>
+					<form class="chat-form" id="chatForm">
+						<label class="sr-only" for="chatInput">Message</label>
+						<textarea id="chatInput" rows="1" maxlength="400" placeholder="Write a note"></textarea>
+						<button class="btn btn-primary btn-icon btn-icon-sm" type="submit" aria-label="Send">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+								<line x1="22" y1="2" x2="11" y2="13"></line>
+								<polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+							</svg>
+						</button>
+					</form>
+				</aside>
+			</div>
+
+			<div class="dock-wrap">
+				<div class="dock">
+					<button class="btn btn-icon btn-dock" id="micBtn" type="button" aria-label="Mute microphone"></button>
+					<button class="btn btn-icon btn-dock" id="camBtn" type="button" aria-label="Turn camera off"></button>
+					<button class="btn btn-icon btn-dock" id="screenBtn" type="button" aria-label="Share screen"></button>
+					<button class="btn btn-icon btn-dock" id="chatBtn" type="button" aria-label="Toggle chat"></button>
+					<button class="btn btn-icon btn-dock" id="dockCopyBtn" type="button" aria-label="Copy room link"></button>
+					<button class="btn btn-icon btn-danger" id="leaveBtn" type="button" aria-label="Leave call"></button>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div class="toast-stack" id="toastStack"></div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/js/room.js"></script>
+</body>
+</html>

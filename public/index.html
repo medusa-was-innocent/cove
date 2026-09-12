@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Cove — group video, no accounts</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Cove is a free, peer-to-peer group video call for the web. No signups, no downloads — share a link and you're talking." />
+	<link rel="icon" href="data:," />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,500;1,600&family=Outfit:wght@400;500;600&display=swap"
+		rel="stylesheet"
+	/>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	<header class="site-header">
+		<a class="wordmark" href="/">
+			<svg viewBox="0 0 32 32" aria-hidden="true">
+				<path
+					d="M7.5 12.5c0-6 4.7-10 8.5-10s8.5 4 8.5 10c0 7.2-5.2 13.5-8.5 16.5C12.7 26 7.5 19.7 7.5 12.5Z"
+					stroke="currentColor"
+					stroke-width="1.6"
+					stroke-linejoin="round"
+					fill="none"
+				/>
+				<circle cx="16" cy="13" r="3.1" fill="currentColor" />
+			</svg>
+			<span>Cove</span>
+		</a>
+		<button type="button" class="btn btn-secondary btn-sm" id="newRoomBtn">New room</button>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-copy">
+				<p class="eyebrow">Group video, no accounts</p>
+				<h1>Walk into a room.<br />That's the whole app.</h1>
+				<p>
+					Cove is a free, peer-to-peer group video call for the web. No signups, no downloads —
+					share a link and you're talking.
+				</p>
+
+				<form class="room-form" id="roomForm">
+					<div class="room-form-field">
+						<span class="prefix">cove/</span>
+						<input type="text" id="roomInput" placeholder="quiet-harbor" maxlength="64" autocomplete="off" aria-label="Room name" />
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg">
+						Start
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px">
+							<line x1="5" y1="12" x2="19" y2="12"></line>
+							<polyline points="12 5 19 12 12 19"></polyline>
+						</svg>
+					</button>
+				</form>
+				<p class="hero-note">Leave it blank and we'll name a room for you. Anyone with the link can join.</p>
+			</div>
+
+			<div>
+				<div class="call-preview-grid">
+					<div class="preview-tile is-talking">
+						<span class="initial">M</span>
+						<span class="name-tag">Mira</span>
+					</div>
+					<div class="preview-tile">
+						<span class="initial">J</span>
+						<span class="name-tag">Jules</span>
+					</div>
+					<div class="preview-tile">
+						<span class="initial">R</span>
+						<span class="name-tag">Ren</span>
+					</div>
+					<div class="preview-tile">
+						<span class="initial">Y</span>
+						<span class="name-tag">You · you</span>
+					</div>
+				</div>
+				<p class="preview-caption">A four-person room, as it looks on a laptop.</p>
+			</div>
+		</section>
+
+		<section class="feature-grid">
+			<div class="feature">
+				<div class="feature-icon">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+						<rect x="5" y="11" width="14" height="9" rx="2"></rect>
+						<path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+					</svg>
+				</div>
+				<h3>No sign-up</h3>
+				<p>Pick a name in the lobby and walk in. Nothing to remember, nothing to download.</p>
+			</div>
+			<div class="feature">
+				<div class="feature-icon">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"></circle>
+						<path d="M8.5 8.5a5 5 0 0 0 0 7"></path>
+						<path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
+						<path d="M5.3 5.3a9 9 0 0 0 0 13.4"></path>
+						<path d="M18.7 5.3a9 9 0 0 1 0 13.4"></path>
+					</svg>
+				</div>
+				<h3>Peer to peer</h3>
+				<p>Video and audio go device to device. Our server only helps the handshake, then steps aside.</p>
+			</div>
+			<div class="feature">
+				<div class="feature-icon">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3Z"></path>
+					</svg>
+				</div>
+				<h3>A link is the door</h3>
+				<p>Rooms live at a URL you can paste anywhere. Keep the name unguessable if you want it private.</p>
+			</div>
+		</section>
+
+		<section class="faq-section">
+			<h2>How a room works</h2>
+			<dl class="faq-list">
+				<div>
+					<dt>What is a room?</dt>
+					<dd>A room is just a shared URL. Open it, name yourself, and anyone else with that link appears in the grid. There is no calendar, no lobby attendant, no host key.</dd>
+				</div>
+				<div>
+					<dt>How many people can join?</dt>
+					<dd>Cove uses a mesh: every person connects directly to every other person. That's why it's private and low-latency — and why it feels best around six to eight people on a decent connection.</dd>
+				</div>
+				<div>
+					<dt>Do you see my camera?</dt>
+					<dd>No. Media never touches our servers. We only pass the tiny handshake that lets browsers find each other. Chat stays on the devices in the room.</dd>
+				</div>
+				<div>
+					<dt>What if I don't have a camera?</dt>
+					<dd>Join anyway. You'll show as a name tile, you can still hear and type, and you can turn a camera on later if one appears.</dd>
+				</div>
+			</dl>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="site-footer-inner">
+			<span>Cove — free group video for the web.</span>
+			<span>Media is peer-to-peer. Signaling is ephemeral.</span>
+		</div>
+	</footer>
+
+	<script>
+		function slugifyRoom(raw) {
+			return String(raw || "")
+				.trim()
+				.toLowerCase()
+				.replace(/[^a-z0-9_-]+/g, "-")
+				.replace(/-{2,}/g, "-")
+				.replace(/^-+|-+$/g, "")
+				.slice(0, 64);
+		}
+
+		document.getElementById("roomForm").addEventListener("submit", (event) => {
+			event.preventDefault();
+			const slug = slugifyRoom(document.getElementById("roomInput").value);
+			if (slug) {
+				window.location.href = `/r/${slug}`;
+			} else {
+				window.location.href = "/new";
+			}
+		});
+
+		document.getElementById("newRoomBtn").addEventListener("click", () => {
+			window.location.href = "/new";
+		});
+	</script>
+</body>
+</html>
